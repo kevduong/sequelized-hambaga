@@ -1,0 +1,84 @@
+<style>
+
+    .col-lg-5 {
+      background-color: #ecf0f1;
+      border: solid 1px #b0bec5;
+      margin-bottom: 50px;
+    }
+
+    h3 {
+      text-decoration: underline;
+      margin-bottom: 50px;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    ul {
+      padding-bottom: 10px;
+      list-style-type: none;
+    }
+
+</style>
+
+{{!-- Add new burger --}}
+<div style="text-align: center; padding-bottom: 50px">
+    <form class="create-update-form" action="/" method="POST">
+
+        <div class="form-group">
+            <label for="ca">Add next burger to try:</label>
+            <input type="text" id="ca" name="burger_name">
+
+            <button class="btn btn-success btn-sm" type="submit">
+         <i class="fa fa-plus icon-large"></i>
+      </button>
+        </div>
+    </form>
+</div>
+
+{{!-- Main body --}}
+<div class="container" style="text-align: center;">
+    <div class="row">
+    {{!-- Hambagas To-Try --}}
+        <div class="col-lg-5">
+            <h3>hambagas to-try</h3>
+            <ul>
+                {{#each burgers}}
+                    {{#unless this.devoured}}
+                        <li style="font-size: 18px;">
+                            {{this.burger_name}}
+
+                            <form action="/{{this.id}}?_method=PUT" method="POST">
+                                <input type="hidden" name="devoured" value="true">
+                                <button class="btn btn-info btn-xs" type="submit">devour
+             <i class="fa fa-chevron-circle-right icon-large"></i>
+          </button>
+                            </form>
+
+                            {{> burger/delete-burger}}
+                        </li>
+                    {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+
+        {{!-- Center logo --}}
+        <div class="col-lg-2" style="margin-top: 150px;">
+            <img style="width: 100%;" src="assets/hambaga-logo-body.png" />
+        </div>
+
+        {{!-- Devoured --}}
+        <div class="col-lg-5">
+            <h3>hambagas devoured</h3>
+            <ul style="font-style: italic;">
+                {{#each burgers}}
+                    {{#if this.devoured}}
+                        <li>
+                            {{this.burger_name}} {{> burger/delete-burger}}
+                        </li>
+                    {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
