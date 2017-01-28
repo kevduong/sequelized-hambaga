@@ -15,6 +15,7 @@ router.get("/", function(req, res) {
 
 //Create
 router.post("/", function(req, res) {
+
   db.Burger.create({
     burger_name: req.body.burger_name,
     devoured: 0
@@ -28,6 +29,7 @@ router.post("/", function(req, res) {
 
 //Update
 router.put("/:id", function(req, res) {
+
   db.Burger.update({
     devoured: req.body.devoured
   },
